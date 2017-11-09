@@ -105,11 +105,12 @@ function recherche(nombre, tab = tab4) {
 //recherche dichotomique
 tab3[0] = 0;
 tab3[1] = 1;
+tab3[19999] = 300000;
 
 function recherche2(nombre, tab) {
-    var index = Math.floor(tab.length / 2);
+    var moitier = Math.floor(tab.length / 2);
+    var index = moitier;
     var indexPrecedent;
-    var indexSuivant;
     var compteur = 0;
     console.log(tab)
     while (compteur < 100) {
@@ -117,24 +118,29 @@ function recherche2(nombre, tab) {
         console.log(index)
         if (tab[index] === nombre) {
             console.log("nombre de passages : " + compteur)        
-            return "il est a l'index : "+ index;
-        } else if (index -1 === indexPrecedent && indexSuivant === index || index +1 === indexSuivant && indexPrecedent === index){
+            return "il est a l'index : " + index;
+        } else if (indexPrecedent === index){
             console.log("nombre de passages : " + compteur)              
             return "Ce nombre est inexistant";
         } else if (tab[index] < nombre) {
             //cherche plus loin
             indexPrecedent = index;
-            index += Math.floor(index / 2);
-        } else {
+            moitier = moitier / 2
+            index += moitier;
+            index = Math.round(index)
+            
+        }  else if (tab[index] > nombre)  {
             //cherche après
-            indexSuivant = index;            
-            index -= Math.floor(index / 2);
+            indexPrecedent = index;    
+            moitier = moitier / 2          
+            index -= moitier;
+            index = Math.round(index)
         }
     }
 }
 
 // tab5 = [1,2,3,4,6,7,8]
 // console.log(recherche2(5, tab5));
-console.log(recherche2(157, tab3));
+console.log(recherche2(300000, tab3));
 
 
